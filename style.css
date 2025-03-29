@@ -1,0 +1,15 @@
+* {
+    font-family: monospace;
+    font-size: 18px;
+}
+
+.btns {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+button {
+    border-radius: 50%;
+    background-color: white;
+}

@@ -1,13 +1,32 @@
 let x;
 let y;
 let operator;
+let result;
 
 const numbers = document.querySelectorAll(".numbers button");
 const operators = document.querySelectorAll(".operators button");
 const output = document.querySelector(".output");
+const equals = document.querySelector("#equals");
+const clear = document.querySelector("#clear");
 
-const updateOutput = (() => output.textContent = `x:${x} operator: ${operator} y:${y}`);
- 
+const updateOutput = (() => {
+    if (x && operator && y) {
+        output.textContent = `${x} ${operator} ${y}`;
+    } 
+    else if (x && operator) {
+        output.textContent = `${x} ${operator}`;
+    }
+    else {
+        output.textContent = x; 
+    } 
+});
+
+const clearOutput = (() => {
+    output.textContent = "";
+    x = undefined;
+    y = undefined;
+    operator = undefined;
+})
 
 numbers.forEach(btn => {
     btn.addEventListener("click", () => {
@@ -28,12 +47,17 @@ operators.forEach(btn => {
     })    
 });
 
-const equals = document.querySelector("#equals");
+equals.addEventListener("click", () => {
+    operate(x, y, operator);
+    output.textContent = result;
+    // Result becomes the first operand
+    x = result;
+    y = undefined;
+    operator = undefined;
+    result = undefined;
+});
 
-one.addEventListener("click", () => x = 1);
-two.addEventListener("click", () => y = 2);
-
-equals.addEventListener("click", () => operate(x, y, operator));
+clear.addEventListener("click", () => clearOutput());
 
 const add = ((a, b) => a + b);
 
@@ -46,19 +70,19 @@ const divide = ((a, b) => a / b);
 function operate(x, y, operator) {
     switch (operator) {
         case "+":
-            output.textContent = add(x, y);
+            result = add(x, y);
             break;
         case "-":
-            output.textContent = subtract(x, y);
+            result = subtract(x, y);
             break;
         case "*":
-            output.textContent = multiply(x, y);
+            result = multiply(x, y);
             break;
         case "/":
-            output.textContent = divide(x, y);
+            result = divide(x, y);
             break;
         default:
-            output.textContent = "ERROR";
+            result = "ERROR";
             break;
     }
 };

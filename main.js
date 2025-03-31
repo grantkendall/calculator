@@ -1,8 +1,10 @@
+// x and y are only accepting single-digit values
 let x;
 let y;
 let operator;
 let result;
 
+// After HTML refactor, double-check variable references
 const numbers = document.querySelectorAll(".numbers button");
 const operators = document.querySelectorAll(".operators button");
 const output = document.querySelector(".output");
@@ -26,11 +28,13 @@ const clearOutput = (() => {
     x = undefined;
     y = undefined;
     operator = undefined;
-})
+});
 
+// 0 isn't being printed
 numbers.forEach(btn => {
     btn.addEventListener("click", () => {
         if (x != undefined) {
+            // Might be a way to do this that doesn't rely on the button's text
             y = +btn.textContent;
         }
         else {
